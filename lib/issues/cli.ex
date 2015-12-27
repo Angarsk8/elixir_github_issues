@@ -6,7 +6,9 @@ defmodule Issues.CLI do
 	@default_count 4
 
 	@moduledoc """
-	documentation for the below function goes here
+	Handle the command line parsing and the dispatch to
+	the various functions that end up generating a 
+	table of the last _n_ issues in a github project
 	"""
 	def main(argv) do
 		argv
@@ -14,8 +16,13 @@ defmodule Issues.CLI do
 		|> process
 	end
 
-	@moduledoc """
-	documentation for the below function goes here
+	@doc """
+	`argv` can be -h or --help, which returns   `:help`.
+
+	Otherwise it is a github user name, project name, and (optionally)
+	the number of entries to format
+
+	Return a tuple of `{ user, project, count }`, or `nil` if help was given.
 	"""
 	def parse_args(argv) do
 		parse = OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
